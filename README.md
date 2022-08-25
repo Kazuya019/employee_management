@@ -14,10 +14,13 @@ Advanced Employee Management System
 *****UPLOADING CHANGES TO GITHUB THROUGH VSCODE*****
 1. Open the project in VS Code and open the terminal
 2. Make sure you are in the main folder (employee_management)
-3. I.   git status //This allows you to see what changes you have made
-   II.  git init   //start tracking current directory 
-   III. git add -A // add all files in current directory to staging area, making them available for commit
-   IV.  git commit -m "commit message"  // commit your changes
-   V.   git remote add origin https://github.com/Kazuya019/employee_management.git.  // add remote repository URL which contains the required details
-   VI.  git pull origin main // always pull from remote before pushing
-   VII. git push -u origin main // publish changes to your remote repository 
+
+**Run the following commands**
+
+3. git status //This allows you to see what changes you have made
+4. git init   //start tracking current directory 
+5. git add -A // add all files in current directory to staging area, making them available for commit
+6. git commit -m "commit message"  // commit your changes
+7. git remote add origin https://github.com/Kazuya019/employee_management.git.  // add remote repository URL which contains the required details
+8. git pull origin main // always pull from remote before pushing
+9. git push -u origin main // publish changes to your remote repository 
