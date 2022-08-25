@@ -1,0 +1,44 @@
+h1 {
+  color: hsl(231, 91%, 21%);
+  margin-top: 5%;
+}
+.left {
+  width: 400px;
+  float: left;
+}
+.right {
+  width: 450px;
+  float: right;
+}
+
+.SignInForm {
+  position: absolute;
+  width: 20%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 1px solid red; */
+}
+.SignInForm h1 {
+  text-align: center;
+  color: black;
+}
+
+.SignInForm input {
+  border: none;
+  width: 90%;
+  padding: 10px;
+}
+.SignInForm button {
+  color: white;
+  background-color: #2d31fa;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 20px 2px;
+  width: 100%;
+}
+.SignInForm button:hover {
+  opacity: 0.8;
+}

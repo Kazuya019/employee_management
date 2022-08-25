@@ -1,13 +1,18 @@
-import logo from "./logo.svg";
 import "./App.css";
+import "./index.css";
+import RegisterScreen from "./Screens/RegisterScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import SigninScreen from "./Screens/SignInScreen";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello0000000 </h1>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Route path="/" exact={true} component={HomeScreen}></Route>
+      <Route path="/signin" component={SigninScreen}></Route>
+      <Route path="/register" component={RegisterScreen}></Route>
+    </BrowserRouter>
   );
 }
 
