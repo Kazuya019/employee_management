@@ -66,6 +66,7 @@ function HomeScreen() {
                     Register
                   </Link>
                 </li>
+                
               </ul>
             </div>
           </nav>
