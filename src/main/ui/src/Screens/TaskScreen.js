@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import "./TaskScreen.css";
 import "./UserMainScreen.css";
-import SigninScreen from "./SignInScreen";
 import { Link } from "react-router-dom";
+import { BsFillCaretRightFill, BsFillCaretDownFill, BsCheckCircle } from 'react-icons/bs';
 
-function UserMainScreen() {
+const ExpandableList = ({ title, content }) => {
+    const [isActive, setIsActive] = useState(false);
+    return (
+        <div >
+            <div className="task-title" onClick={() => setIsActive(!isActive)}>
+                <div>{isActive ? <BsFillCaretDownFill /> : <BsFillCaretRightFill />}</div>
+                <div>{title}</div>
+            </div>
+            {isActive && <div className="task-content">{content}</div>}
+        </div>
+    );
+};
+
+function TaskScreen() {
+    const n = 4;
+    const subtask = {
+        details:
+            <tr>
+                <th><div class='center-icon'> <BsCheckCircle class='icon' /> Sub Task </div></th>
+                <th>Date</th>
+                <th>Priority</th>
+            </tr>
+    }
+    const task = {
+        title: <div class='task'>Task Title</div>,
+        content:
+            <div class="subtask-info">
+                <table>
+                    {[...Array(n)].map((e, i) => subtask.details)}
+                </table>
+            </div>
+    }
+    const taskData = [...Array(n)].map((e, i) => task)
+
     return (
         <div class="grid-container">
             <header class="header">
@@ -20,10 +54,8 @@ function UserMainScreen() {
                         </li>
                     </ul>
                 </div>
-                
             </header>
             <div class="container">
-        
                 <div class="side-menu">
                     <ul class="side-buttons">
                         <li>
@@ -32,7 +64,7 @@ function UserMainScreen() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/task" type="button" class="btn" name="button">
+                            <Link to="/signin" type="button" class="btn" name="button">
                                 My tasks
                             </Link>
                         </li>
@@ -54,28 +86,29 @@ function UserMainScreen() {
                     </ul>
                     <button class="logout">Logout</button>
                 </div>
-                
                 <div class="main-contents">
-                    
-                    <div class="user-icon">
-                        Employee Name
+                    <div class="task-info">
+                        <table>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="user-info">
-                        <ul>
-                            <li>Employee ID</li>
-                            <li>Department</li>
-                            <li>Position</li>
-                        </ul>
+                    <div>
+                        <div>
+                            {taskData.map(({ title, content }) => (
+                                <ExpandableList title={title} content={content} />
+                            ))}
+                        </div>
                     </div>
                 </div>
-            
             </div>
             <footer>
                 Contact
             </footer>
         </div>
-        
     );
 }
-
-export default UserMainScreen;
+export default TaskScreen;
