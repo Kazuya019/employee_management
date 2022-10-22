@@ -2,6 +2,8 @@ import "./App.css";
 import "./index.css";
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import RegisterScreen from "./Screens/RegisterScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import UserMainScreen from "./Screens/UserMainScreen";
