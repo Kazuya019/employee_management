@@ -1,11 +1,13 @@
 import "./App.css";
 import "./index.css";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import RegisterScreen from "./Screens/RegisterScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import UserMainScreen from "./Screens/UserMainScreen";
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import TaskScreen from "./Screens/TaskScreen";
 import SigninScreen from "./Screens/SignInScreen";
+import UserMessageScreen from "./Screens/UserMessageScreen";
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
       <Route path="/" exact={true} component={HomeScreen}></Route>
       <Route path="/signin" component={SigninScreen}></Route>
       <Route path="/register" component={RegisterScreen}></Route>
-      <Route path="/userMain" component={UserMainScreen}></Route>
+      <Route path="/main" component={UserMainScreen}></Route>
+      <Route path="/message" component={UserMessageScreen}></Route>
+      <Route path="/task" component={TaskScreen}></Route>
     </BrowserRouter>
   );
 }

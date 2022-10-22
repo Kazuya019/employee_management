@@ -1,0 +1,77 @@
+/* Main Contents */
+.main-contents-message {
+    background-color: white;
+    width: 100%;
+    
+}
+.main-contents-message h1 {
+    display: inline-block;
+    font-weight: 300;  
+    font-size: 1.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: black;
+    margin-right: 250px;
+
+}
+hr{
+    border: none;
+    border-bottom: 1px solid #C4C4C4;
+    margin-right: calc(0% - 50vw);
+    margin-left: calc(0% - 50vw);
+}
+
+table {
+    text-align: center;
+}
+.message-form {
+    display: block;
+    margin-left: 200px;
+
+    
+}
+.message-form table{
+    width:100%;
+    margin-bottom:15px;
+}
+.message-form table tr{
+    padding: 20px 0px 10px 0px;
+}
+
+.message-form th{
+    text-align:right;
+    width:10%;
+}
+.message-form td{
+    display: inline-block;
+    text-align: left;
+}
+
+.message-form input:not(input[type="submit"]){
+	width:80%;
+    font-size: 70%;
+}
+.message-form input:not(input[type="submit"]){
+	height:10px;
+}
+
+
+.text-area  {
+    display: block;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    
+}
+
+.text-area textarea {
+    width: 80%;
+    font-size:75%;
+}
+
+div.submit {
+    width: auto;
+}
+
+
+
+

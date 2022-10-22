@@ -2,13 +2,31 @@ import React, { useState } from "react";
 import "./RegisterScreen.css";
 import logo from "./images/left.png";
 import logos from "./images/right.png";
+import Axios from "axios";
 
 const RegisterScreen = () => {
   const [id, setId] = useState("");
-  const [name, setName] = useState("");
+  const [Fname, setFName] = useState("");
+  const [Lname, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  const [comfPassword, setComfPassword] = useState("");
+
+  //function to make an object and send data to backend
+  const Register = () => {
+    console.log(id);
+    Axios.post("http://localhost:3001/user/register", {
+      //pass data received from input to backend
+      ID: id,
+      Fname: Fname,
+      Lname: Lname,
+      email: email,
+      password: password,
+      comfPassword: comfPassword,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
   const RegisterHandler = (event) => {
     event.preventDefault(); //to prevent the page gets reloaded when we click on the submit button, so that it does not send any data to the server
@@ -30,9 +48,16 @@ const RegisterScreen = () => {
           <hr></hr>
           <input
             type="text"
-            placeholder="Name"
-            id="name"
-            onChange={(event) => setName(event.target.value)}
+            placeholder="First Name"
+            id="Fname"
+            onChange={(event) => setFName(event.target.value)}
+          ></input>
+          <hr></hr>
+          <input
+            type="text"
+            placeholder="Last Name"
+            id="Lname"
+            onChange={(event) => setLName(event.target.value)}
           ></input>
           <hr></hr>
           <input
@@ -43,20 +68,20 @@ const RegisterScreen = () => {
           ></input>
           <hr></hr>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             id="password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
           <hr></hr>
           <input
-            type="text"
+            type="password"
             placeholder="Confirm Password"
-            id="employee_id"
-            onChange={(event) => setRePassword(event.target.value)}
+            id="comfPassword"
+            onChange={(event) => setComfPassword(event.target.value)}
           ></input>
           <hr></hr>
-          <button type="submit" class="registerbtn">
+          <button onClick={Register} type="submit" className="registerbtn">
             Register
           </button>
         </div>

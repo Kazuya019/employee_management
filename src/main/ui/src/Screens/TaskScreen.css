@@ -1,0 +1,66 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr th {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+table tr th:nth-child(1) {
+  width: 60%;
+  text-align: left;
+  border-left: 0px solid;
+}
+
+table tr th:nth-child(3) {
+  width: 20%;
+  border-right: 0px solid;
+}
+
+.icon {
+  color: green;
+  font-size: 30px;
+}
+
+.center-icon {
+  gap: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.subtask-info table tr th:nth-child(1) {
+  padding-left: 10%;
+}
+
+.individual-task select {
+  border: none;
+  width: 100%;
+}
+
+.task {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.task-info {
+  font-size: 1.5rem;
+}
+
+.task-title {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.task-title:hover {
+  background-color: rgb(225, 224, 224);
+}
+
+.task-content {
+  background-color: rgb(222, 218, 218);
+}
