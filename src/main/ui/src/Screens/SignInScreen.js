@@ -1,10 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./SignInScreen.css";
 import logo from "./images/left.png";
 import logos from "./images/right.png";
+import Axios from "axios";
+
 function SigninScreen() {
+  // const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [LoginStatus, setLoginStatus] = useState("");
+
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
+
+  //function to retrieve data from backend
+  const Login = () => {
+    // const history = useHistory();
+    Axios.post("http://localhost:3001/user/login", {
+      ID: id,
+      password: password,
+    }).then((response) => {
+      // console.log(response.data);
+      if (response.data.loggedIn) {
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("ID", response.data.ID);
+
+        // setLoginStatus(response.data.message);
+      } else {
+        setLoginStatus(response.data.message);
+      }
+      // console.log(response);
+    });
+  };
 
   const SignInHandler = (event) => {
     event.preventDefault(); //to prevent the page gets reloaded when we click on the submit button, so that it does not send any data to the server
@@ -26,15 +55,16 @@ function SigninScreen() {
           ></input>
           <hr></hr>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             id="password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
           <hr></hr>
-          <button type="submit" class="registerbtn">
+          <button onClick={Login} type="submit" className="registerbtn">
             Log In
           </button>
+          <h4 style={{ color: "red" }}>{LoginStatus}</h4>
         </div>
       </form>
     </div>
