@@ -64,7 +64,7 @@ function UserMainScreen() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/signin" type="button" class="btn" name="button">
+                                <Link to="/calendar" type="button" class="btn" name="button">
                                     Calendar
                                 </Link>
                             </li>
