@@ -72,7 +72,7 @@ function CalendarScreen() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/signin" type="button" class="btn" name="button">
+                                <Link to="/task" type="button" class="btn" name="button">
                                     My tasks
                                 </Link>
                             </li>
