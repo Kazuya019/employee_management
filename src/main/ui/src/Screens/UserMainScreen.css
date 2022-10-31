@@ -1,13 +1,13 @@
-
-.grid-container{
+.grid-container {
   display: grid;
-  grid-template-areas: 
-  "header"
-  "main";
+  grid-template-areas:
+    "header"
+    "main";
   grid-template-columns: 1fr;
-  grid-template-rows: 2.5rem 1fr ;
+  grid-template-rows: 2.5rem 1fr;
   width: 100%;
 }
+
 /*Header*/
 .grid-container header {
   grid-area: header;
@@ -18,36 +18,37 @@
   align-items: center;
   text-align: left;
   height: auto;
-  
 }
-div.title{
+
+div.title {
   display: block;
   font-family: "Montserrat";
-  font-weight: 900;  
+  font-weight: 900;
   font-size: 105%;
   height: auto;
 }
+
 div.clockin-out {
   display: block;
-  height: auto ;
+  height: auto;
 }
 
-
-.clockin-out ul{
+.clockin-out ul {
   display: flex;
   text-decoration: none;
   list-style: none;
   margin: 0 auto;
   padding: 0;
 }
-.clockin-out ul li{
+
+.clockin-out ul li {
   display: block;
   width: auto;
   height: auto;
   margin: 0;
   padding: 5px 10px 5px 10px;
-  
 }
+
 button.clock-btn {
   background-color: #5D8BF4;
   color: white;
@@ -64,66 +65,69 @@ button.clock-btn {
   margin: 0 auto;
   font-size: 0.5rem;
   font-weight: 600;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 button.clock-btn:hover {
   background-color: white;
   color: #5D8BF4;
   border: 1px solid #5D8BF4;
 }
+
 .container {
-    grid-area: main;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    min-height: 80vh;
-  }
-  
- 
-.main-contents {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    background-color: white;
+  grid-area: main;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  min-height: 80vh;
 }
 
+.main-contents {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  padding-left: 60px;
+  background-color: white;
+}
 
 .user-icon {
-    text-align: center;
-    font-weight: 300;  
-    font-size: 1rem;
+  text-align: center;
+  font-weight: 300;
+  font-size: 1rem;
 }
+
 .user-info ul {
-    display: flex;
-    
+  display: flex;
+
 }
+
 .user-info ul li {
-    list-style: none;
-    width: 100%;
-    padding: 10px 10px 10px 10px;
-    font-weight: 300;  
-    font-size: 0.75rem;
+  list-style: none;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  font-weight: 300;
+  font-size: 0.75rem;
 }
 
 /* Sidebar */
 .side-bar {
-    display: block;
-    background-color: #DFF6FF;
-    justify-content: space-between;
-    position: fixed;
-    transition:all 0.5s;
-    transform: translateX(0);
-    width: 200px;
-    height: 100%;  
-} 
+  display: block;
+  background-color: #DFF6FF;
+  justify-content: space-between;
+  position: fixed;
+  transition: all 0.5s;
+  transform: translateX(0);
+  width: 200px;
+  height: 100%;
+}
 
-.side-bar.close{
+.side-bar.close {
   transform: translateX(-150px);
 }
 
-.sidebar-close-button{
+.sidebar-close-button {
   border-style: none;
   padding: 0;
   background: transparent;
@@ -133,7 +137,7 @@ button.clock-btn:hover {
   text-align: right;
 }
 
-.close-btn{
+.close-btn {
   height: 20px;
   padding: 10px 10px 10px 10px;
 }
@@ -144,7 +148,6 @@ button.clock-btn:hover {
   list-style: none;
   padding: 0%;
   margin-bottom: 50px;
-  
 }
 
 .side-buttons li a {
@@ -157,10 +160,9 @@ button.clock-btn:hover {
   text-decoration: none;
   font-weight: bold;
   transition: .3s;
-  font-weight: 300;  
+  font-weight: 300;
   font-size: 0.75rem;
-  font-family:Arial, Helvetica, sans-serif;
-
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a.btn {
@@ -172,7 +174,7 @@ a.btn {
   color: white;
 }
 
-.logout { 
+.logout {
   background-color: #2D31FA;
   color: white;
   border-radius: 1000px;
@@ -186,7 +188,7 @@ a.btn {
   margin: 0 auto;
   font-size: 100%;
   font-weight: 600;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .logout:hover {

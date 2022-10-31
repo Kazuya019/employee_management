@@ -1,0 +1,49 @@
+table.tc-table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-left: 30px;
+    margin-bottom: 40px;
+}
+
+table.tc-table tr th {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+table.tc-table td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+table.tc-table tr th:nth-child(1) {
+    background-color: #DFF6FF;
+}
+
+table.tc-table tr:nth-child(1) {
+    background-color: #DFF6FF;
+}
+
+.section-title, .week1, .week2 {
+    padding-left: 30px;
+    text-align: left;
+}
+
+.pay-details {
+    padding-top: 15px;
+}
+
+table.pd-table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-left: 30px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+table.pd-table th, td {
+    padding: 10px;
+}
+
+table.pd-table tr:nth-child(1) {
+    background-color: #DFF6FF;
+}

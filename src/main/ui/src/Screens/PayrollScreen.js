@@ -1,25 +1,24 @@
 import React, { useState } from "react";
-import "./TaskScreen.css";
+import "./PayrollScreen.css";
 import "./UserMainScreen.css";
+import moment from "moment";
 import close from "./images/close-sidebar.jpg";
 import open from  "./images/open-sidebar.jpg";
 import { Link } from "react-router-dom";
-import { BsFillCaretRightFill, BsFillCaretDownFill, BsCheckCircle } from "react-icons/bs";
 
-const ExpandableList = ({ title, content }) => {
-    const [isActive, setIsActive] = useState(false);
+const Timecard = ({ weeks, hours }) => {
+    const [isActive] = useState(false);
     return (
-        <div>
-            <div className="task-title" onClick={() => setIsActive(!isActive)}>
-                <div>{isActive ? <BsFillCaretDownFill /> : <BsFillCaretRightFill />}</div>
-                <div>{title}</div>
-            </div>
-            {isActive && <div className="task-content">{content}</div>}
+        <div class = "timecard">
+            <table class="tc-table">
+                {weeks}
+                {hours}
+            </table>          
         </div>
     );
 };
 
-function TaskScreen() {
+function PayrollScreen() {
     var closed = false;
     function btnClick() {
         if (closed) {
@@ -35,31 +34,60 @@ function TaskScreen() {
         }
     }
 
-    const n = 4;
-    const subtask = {
-        details:
-            <tr>
-                <th>
-                    <div class="center-icon"> 
-                        <BsCheckCircle class="icon" /> 
-                        <Link to="/task-info" type="button" class="task-btn" name="task-button">Sub Task</Link> 
-                    </div>
-                </th>
-                <th>Date</th>
-                <th>Priority</th>
-            </tr>
+    function getLastWeekDates() {
+        var weekDates= [];  
+        for (var i = -6; i <= -2; i++) {
+            weekDates.push(<td>{moment().day(i).format("ddd, M/D")}</td>); 
+        }
+        return weekDates; 
     }
-    const task = {
-        title: <div class="task">Task Title</div>,
-        content:
-            <div class="subtask-info">
-                <table class="task-table">
-                    {[...Array(n)].map((e, i) => subtask.details)}
-                </table>
-            </div>
-    }
-    const taskData = [...Array(n)].map((e, i) => task)
 
+    function getThisWeekDates() {
+        var weekDates= []; 
+        for (var i = 1; i <= 5; i++) {
+            weekDates.push(<td>{moment().day(i).format("ddd, M/D")}</td>); 
+        }
+        return weekDates; 
+    }
+
+    var lastWeekDates = getLastWeekDates();   
+    var thisWeekDates = getThisWeekDates(); 
+
+    const n = 5;
+    const hour = <td>hour</td>
+    const hourRow = [...Array(n)].map((e, i) => hour)
+    const lastWeekInfo = {
+        weeks: 
+            <tr>
+                <th>Date</th>
+                {lastWeekDates}
+            </tr>,
+        hours:  
+            <tr>
+                <th>Hours</th>
+                {hourRow}
+            </tr>     
+    }
+    const thisWeekInfo = {
+        weeks: 
+            <tr>
+                <th>Date</th>
+                {thisWeekDates}
+            </tr>,
+        hours:  
+        <tr>
+            <th>Hours</th>
+            {hourRow}
+        </tr>  
+    }
+   
+    const lastWeekStart = moment().day(-6).format("M/D")
+    const lastWeekEnd = moment().day(-2).format("M/D")
+    const thisWeekStart = moment().day(1).format("M/D")
+    const thisWeekEnd = moment().day(5).format("M/D")
+    const lastWeek = [...Array(1)].map((e, i) => lastWeekInfo)
+    const thisWeek = [...Array(1)].map((e, i) => thisWeekInfo)
+    
     return (
         <div class="grid-container">
             <header class="header">
@@ -125,25 +153,43 @@ function TaskScreen() {
                     </div>
                 </aside>
                 <div class="main-contents">
-                    <div class="task-info">
-                        <table class="task-table">
+                    <div class="timecard">
+                        <div class="section-title"><h3>Timecard</h3></div>
+                        <hr></hr>
+                        <div class="section-title" id="week1">
+                            <p>Week of {lastWeekStart} - {lastWeekEnd}</p>
+                        </div>
+                        {lastWeek.map(({ weeks, hours }) => (
+                            <Timecard weeks={weeks} hours={hours} />
+                        ))}
+                        <div class="section-title" id="week2">
+                            <p>Week of {thisWeekStart} - {thisWeekEnd}</p>
+                        </div>
+                        {thisWeek.map(({ weeks, hours }) => (
+                            <Timecard weeks={weeks} hours={hours} />
+                        ))}
+                    </div>
+                    <div class="pay-details">
+                        <div class="section-title">
+                            <h3>Pay Details</h3>
+                        </div>
+                        <hr></hr>
+                        <table class="pd-table">
                             <tr>
-                                <th>Task Name</th>
-                                <th>Due Date</th>
-                                <th>Priority</th>
+                                <th>Salary/Base Pay</th>
+                                <th>Next Payday</th>
+                                <th>PTO Available</th>
+                            </tr>
+                            <tr>  
+                                <td>$</td>
+                                <td>day</td>
+                                <td>hours</td>
                             </tr>
                         </table>
-                    </div>
-                    <div>
-                        <div>
-                            {taskData.map(({ title, content }) => (
-                                <ExpandableList title={title} content={content} />
-                            ))}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-export default TaskScreen;
+export default PayrollScreen;

@@ -1,11 +1,12 @@
 import React from "react";
+import "./TaskInfoScreen.css";
 import "./UserMainScreen.css";
+import close from "./images/close-sidebar.jpg";
+import open from  "./images/open-sidebar.jpg";
 import { Link } from "react-router-dom";
-import close from './images/close-sidebar.jpg';
-import open from  './images/open-sidebar.jpg';
 
-function UserMainScreen() {
-    
+
+function TaskInfoScreen() {
     var closed = false;
     function btnClick() {
         if (closed) {
@@ -21,7 +22,6 @@ function UserMainScreen() {
         }
     }
 
-    
     return (
         <div class="grid-container">
             <header class="header">
@@ -41,14 +41,13 @@ function UserMainScreen() {
                         </button>
                         </li>
                     </ul>
-                </div>
-                
+                </div>  
             </header>
             <div class="container">
                 <aside class="side-bar" id="side-menu">
                     <div>
                         <button class="sidebar-close-button" onClick={btnClick}>
-                            <img src={close} alt="close" class="close-btn" name='side'/>
+                            <img src={close} alt="close" class="close-btn" name="side"/>
                         </button>
                     </div>
                     <div id="side" class="side">
@@ -87,25 +86,34 @@ function UserMainScreen() {
                         
                     </div>
                 </aside>
-
                 <div class="main-contents">
-                    
-                    <div class="user-icon">
-                        Employee Name
-                    </div>
-                    <div class="user-info">
-                        <ul>
-                            <li>Employee ID</li>
-                            <li>Department</li>
-                            <li>Position</li>
-                        </ul>
+                    <div class="task-info">
+                        <table class="task-info-tbl">
+                            <tr>
+                                <td><div class="task-header">Sub Task 1</div></td>
+                                <td rowspan="2"><button class="complete">Complete</button></td>
+                            </tr>
+                            <tr>
+                                <td><div class="due-date">Due</div></td>
+                            </tr>
+                        </table>
+                        <div class="info">
+                            <ol>
+                                <li>Information about task</li>    
+                                <li>Information about task</li>   
+                                <li>Information about task</li> 
+                            </ol>
+                        </div>
+                        <div class="form-group">
+                            <form method="get">
+                                <input type="text" placeholder="Comments..."></input>
+                                <button type="submit" class="comment">Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            
             </div>
         </div>
-        
     );
 }
-
-export default UserMainScreen;
+export default TaskInfoScreen;

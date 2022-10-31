@@ -1,20 +1,20 @@
-table {
+table.task-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table tr th {
+table.task-table tr th {
   border: 1px solid black;
   padding: 10px;
 }
 
-table tr th:nth-child(1) {
+table.task-table tr th:nth-child(1) {
   width: 60%;
   text-align: left;
   border-left: 0px solid;
 }
 
-table tr th:nth-child(3) {
+table.task-table tr th:nth-child(3) {
   width: 20%;
   border-right: 0px solid;
 }
@@ -25,7 +25,6 @@ table tr th:nth-child(3) {
 }
 
 .center-icon {
-  gap: 15px;
   display: flex;
   align-items: center;
 }
@@ -41,11 +40,11 @@ table tr th:nth-child(3) {
 
 .task {
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .task-info {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .task-title {
@@ -63,4 +62,15 @@ table tr th:nth-child(3) {
 
 .task-content {
   background-color: rgb(222, 218, 218);
+}
+
+.task-btn {
+  color: #000000;
+  padding-right: 10em;
+  text-decoration: none;
+  margin: 0 auto;
+}
+
+.task-btn:hover {
+  color: #5D8BF4;
 }
