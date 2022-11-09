@@ -5,7 +5,7 @@ import logo from "./images/left.png";
 import logos from "./images/right.png";
 import Axios from "axios";
 
-function SigninScreen() {
+function SigninScreen(props) {
   // const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ function SigninScreen() {
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("ID", response.data.ID);
-
+        props.history.push("/main");
         // setLoginStatus(response.data.message);
       } else {
         setLoginStatus(response.data.message);

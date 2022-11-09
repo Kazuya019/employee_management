@@ -4,7 +4,7 @@ import logo from "./images/left.png";
 import logos from "./images/right.png";
 import Axios from "axios";
 
-const RegisterScreen = () => {
+const RegisterScreen = (props) => {
   const [id, setId] = useState("");
   const [Fname, setFName] = useState("");
   const [Lname, setLName] = useState("");
@@ -25,6 +25,7 @@ const RegisterScreen = () => {
       comfPassword: comfPassword,
     }).then((response) => {
       console.log(response);
+      props.history.push("/signin");
     });
   };
 
