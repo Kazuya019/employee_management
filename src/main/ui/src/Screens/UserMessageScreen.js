@@ -124,7 +124,6 @@ function UserMessageScreen() {
                             <br/>
                             <textarea className="mes" name="message" rows="10"/>
                             <br/>
-                            <input className="send" type="submit" value="Send"  />
 			    <Popup trigger={<input className="send" type="submit" value="Send"/>} position="right center">
                                 <div>Successful send!</div>
                             </Popup>
