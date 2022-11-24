@@ -1,6 +1,8 @@
 import React from "react";
 import "./UserMessageScreen.css";
 import "./UserMainScreen.css";
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
 import open from  './images/open-sidebar.jpg';
@@ -21,7 +23,20 @@ function UserMessageScreen() {
             closed = true;
         }
     }
+	
+	const form = useRef();
 
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm('service_44o8ofq', 'template_004y4o4', form.current, 'NtFouw2ad6pi8Rubb')
+            .then((result) => {
+                console.log(result.text);
+                console.log("message send");
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
     
     return (
         <div class="grid-container">
@@ -94,24 +109,20 @@ function UserMessageScreen() {
                     <h1>Compose Message</h1>
                     <hr></hr>
                     <div class="message-form">
-                        <form method="" action="">
-                            <table>
-                                <tr>
-                                    <th>Department:</th>
-                                    <td><input type="text" size="30"></input></td>
-                                </tr>
-			                    <tr>
-                                    <th>Email:</th>
-                                    <td><input type="email" size="30"></input></td>
-                                </tr>
-                            </table>
-                            <hr></hr>
-                            <div class="text-area">
-                                <textarea rows="10"></textarea>
-                            </div>
-                            <div class="submit">
-                            <input class="submit-btn" type="submit" value="Submit"></input>
-                            </div>
+                        <form ref={form} onSubmit={sendEmail}>
+                            <label>Name</label>
+                            <input type="text" size="30" name="user_name" />
+                            <br/>
+                            <br/>
+                            <label>Email</label>
+                            <input type="email" size="30" name="user_email" />
+                            <br/>
+                            <br/>
+                            <label className="mess">Message</label>
+                            <br/>
+                            <textarea className="mes" name="message" rows="10"/>
+                            <br/>
+                            <input className="send" type="submit" value="Send"  />
                         </form>
                     </div>
                     
