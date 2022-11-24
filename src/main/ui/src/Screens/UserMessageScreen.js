@@ -3,6 +3,8 @@ import "./UserMessageScreen.css";
 import "./UserMainScreen.css";
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
 import open from  './images/open-sidebar.jpg';
@@ -123,6 +125,9 @@ function UserMessageScreen() {
                             <textarea className="mes" name="message" rows="10"/>
                             <br/>
                             <input className="send" type="submit" value="Send"  />
+			    <Popup trigger={<input className="send" type="submit" value="Send"/>} position="right center">
+                                <div>Successful send!</div>
+                            </Popup>
                         </form>
                     </div>
                     
