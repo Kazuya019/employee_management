@@ -32,7 +32,7 @@ table {
 
 .message-form input:not(input[type="submit"]){
 	width:60%;
-    font-size: 70%;
+    font-size: 1rem;
 }
 .message-form input:not(input[type="submit"]){
 	height:35px;
@@ -44,7 +44,7 @@ div.submit {
 
 textarea {
     width: 60%;
-    font-size: 70%;
+    font-size: 1rem;
   } 
 
 .send {
