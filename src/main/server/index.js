@@ -12,10 +12,14 @@ app.use(express.json());
 const userRoute = require("./routes/user");
 app.use("/user", userRoute);
 
+const mainpageRoute = require("./routes/mainpage");
+app.use("/main", mainpageRoute);
+
 //API will first write on the root address
 // app.get("/", (req, res) => {
 //   res.send("First request!!!!!!");
 // });
+
 
 //connect to server port
 app.listen(3001, () => {

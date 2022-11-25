@@ -1,4 +1,9 @@
 
+node_modules/
+*.json
+*.pack
+/src/main/ui/node_modules/
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -13,6 +18,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.json
+.pack
 
 ### IntelliJ IDEA ###
 .idea
@@ -32,5 +39,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/ui/node_modules
-/src/main/server/node_modules
+!**/src/main/ui/node_modules
