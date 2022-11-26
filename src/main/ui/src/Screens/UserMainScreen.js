@@ -27,7 +27,6 @@ function UserMainScreen() {
     }
 
     useEffect(() => {
-        console.log("useEffect is used ??");
         const fetchPosDep = async ()=> {
 
             try {
@@ -37,7 +36,6 @@ function UserMainScreen() {
                     }
                 });
                 setInfo(res.data);
-                console.log("useEffect is used.");
             } catch (err) {
                 console.log(err)
             }
@@ -45,13 +43,45 @@ function UserMainScreen() {
         fetchPosDep();
     },[ ]);
 
-    function ProfileDetails() {
-        const name = info[0].FName
-        return <div className="user-icon"> Employee Name: {name} </div>
+    var timer = new Date();
+    
+    function clickIn() {
+    
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock in", timer.getHours())
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
     }
 
+    function clickOut() {
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal-out");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock out", timer.getHours())
+
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+    
+
     return (
-        <div className="grid-container">
+        
+        <div className="grid-container" >
+            <div className="hidden" id="modal-overlay"></div>
             <header className="header">
                 <div className="title">
                     Connecteam+
@@ -59,12 +89,12 @@ function UserMainScreen() {
                 <div className="clockin-out">
                     <ul>
                         <li>
-                        <button className="clock-btn">
+                        <button className="clock-btn" id="btn" onClick={clickIn}>
                             Clock in
                         </button>
                         </li>
                         <li>
-                        <button className="clock-btn">
+                        <button className="clock-btn" id="btn-out" onClick={clickOut}>
                             Clock out
                         </button>
                         </li>
@@ -72,7 +102,7 @@ function UserMainScreen() {
                 </div>
                 
             </header>
-            <div className="container">
+            <div className="container" >
                 <aside className="side-bar" id="side-menu">
                     <div>
                         <button className="sidebar-close-button" onClick={btnClick}>
@@ -117,6 +147,12 @@ function UserMainScreen() {
                 </aside>
 
                 <div className="main-contents">
+                    <div id="modal" className="hidden">
+                        <p>Clock in Success</p>
+                    </div>
+                    <div id="modal-out" className="hidden">
+                        <p>Clock Out Success</p>
+                    </div>
                     {info.map(detail=>(
                         <div className="user-icon"> 
                             Employee Name: {detail.FName} {detail.LName}
