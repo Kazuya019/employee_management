@@ -1,25 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TaskScreen.css";
 import "./UserMainScreen.css";
 import close from "./images/close-sidebar.jpg";
-import open from  "./images/open-sidebar.jpg";
+import open from "./images/open-sidebar.jpg";
 import { Link } from "react-router-dom";
-import { BsFillCaretRightFill, BsFillCaretDownFill, BsCheckCircle } from "react-icons/bs";
+import { BsCheckCircle, BsFillCheckCircleFill } from "react-icons/bs";
+import Axios from "axios";
+import moment from "moment";
 
-const ExpandableList = ({ title, content }) => {
-    const [isActive, setIsActive] = useState(false);
-    return (
-        <div>
-            <div className="task-title" onClick={() => setIsActive(!isActive)}>
-                <div>{isActive ? <BsFillCaretDownFill /> : <BsFillCaretRightFill />}</div>
-                <div>{title}</div>
-            </div>
-            {isActive && <div className="task-content">{content}</div>}
-        </div>
-    );
-};
 
-function TaskScreen() {
+const TaskScreen = (props) => {
+    var id = localStorage.getItem("ID");
+
     var closed = false;
     function btnClick() {
         if (closed) {
@@ -35,30 +27,26 @@ function TaskScreen() {
         }
     }
 
-    const n = 4;
-    const subtask = {
-        details:
-            <tr>
-                <th>
-                    <div class="center-icon"> 
-                        <BsCheckCircle class="icon" /> 
-                        <Link to="/task-info" type="button" class="task-btn" name="task-button">Sub Task</Link> 
-                    </div>
-                </th>
-                <th>Date</th>
-                <th>Priority</th>
-            </tr>
-    }
-    const task = {
-        title: <div class="task">Task Title</div>,
-        content:
-            <div class="subtask-info">
-                <table class="task-table">
-                    {[...Array(n)].map((e, i) => subtask.details)}
-                </table>
-            </div>
-    }
-    const taskData = [...Array(n)].map((e, i) => task)
+    const [ltask, setTask] = useState([]);
+
+    // function to fetch the data from database
+    const getTaskData = async () => {
+        try {
+            Axios.get("http://localhost:3001/task/task", {
+                params: { id: id }
+            }).then((response) => {
+                console.log(response.data);
+                setTask(response.data);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // React Hook that executes the fetch function on the first render 
+    useEffect(() => {
+        getTaskData();
+    }, []);
 
     return (
         <div class="grid-container">
@@ -69,23 +57,23 @@ function TaskScreen() {
                 <div class="clockin-out">
                     <ul>
                         <li>
-                        <button class="clock-btn">
-                            Clock in
-                        </button>
+                            <button class="clock-btn">
+                                Clock in
+                            </button>
                         </li>
                         <li>
-                        <button class="clock-btn">
-                            Clock out
-                        </button>
+                            <button class="clock-btn">
+                                Clock out
+                            </button>
                         </li>
                     </ul>
-                </div>  
+                </div>
             </header>
             <div class="container">
                 <aside class="side-bar" id="side-menu">
                     <div>
                         <button class="sidebar-close-button" onClick={btnClick}>
-                            <img src={close} alt="close" class="close-btn" name="side"/>
+                            <img src={close} alt="close" class="close-btn" name="side" />
                         </button>
                     </div>
                     <div id="side" class="side">
@@ -121,7 +109,7 @@ function TaskScreen() {
                                 Log out
                             </button>
                         </Link>
-                        
+
                     </div>
                 </aside>
                 <div class="main-contents">
@@ -132,18 +120,41 @@ function TaskScreen() {
                                 <th>Due Date</th>
                                 <th>Priority</th>
                             </tr>
+                            {ltask.map((task) => (
+                                <tr>
+                                    <th>
+                                        <div class="center-icon">
+                                            <>
+                                                {task.status === 'complete' ? <BsFillCheckCircleFill class="icon" /> : <BsCheckCircle class="icon" />}
+                                            </>
+                                            <Link to={{
+                                                pathname: "/task-info",
+                                                state: {
+                                                    userinfo: {
+                                                        taskid: task.task_id,
+                                                        type: 'own'
+                                                    }
+                                                }
+                                            }}
+                                                type="button" class="task-btn" name="task-button">
+                                                {task.title}
+                                            </Link>
+                                        </div>
+                                    </th>
+                                    <th>{moment(task.due_date).format('MM/DD/YY')}</th>
+                                    <th>{task.priority}</th>
+                                </tr>
+                            ))}
+
                         </table>
                     </div>
                     <div>
-                        <div>
-                            {taskData.map(({ title, content }) => (
-                                <ExpandableList title={title} content={content} />
-                            ))}
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
 export default TaskScreen;

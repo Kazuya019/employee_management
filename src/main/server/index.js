@@ -15,6 +15,9 @@ app.use("/user", userRoute);
 const mainpageRoute = require("./routes/mainpage");
 app.use("/main", mainpageRoute);
 
+const taskRoute = require("./routes/task");
+app.use("/task", taskRoute);
+
 //API will first write on the root address
 // app.get("/", (req, res) => {
 //   res.send("First request!!!!!!");

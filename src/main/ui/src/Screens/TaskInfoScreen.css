@@ -4,10 +4,21 @@
     text-align: left;
 }
 
-.due-date {
+.due-date, .comments {
     font-weight: bold;
     font-size: 1.1rem;
     text-align: left;
+}
+
+.desc {
+    font-size: 1.5rem;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    margin-left: 10px;
 }
 
 .info {

@@ -8,7 +8,7 @@ import Axios from "axios";
 import moment from "moment";
 
 
-const TaskInfoScreen = (props) => {
+const ManagerTaskInfoScreen = (props) => {
     var id = localStorage.getItem("ID");
     var task_type = props.location.state.userinfo.type;
 
@@ -84,6 +84,7 @@ const TaskInfoScreen = (props) => {
 
     //function to make an object and send data to backend
     const Complete = () => {
+
         Axios.post("http://localhost:3001/task/task-info", {
             //pass data received from input to backend
             employee_id: id,
@@ -95,6 +96,7 @@ const TaskInfoScreen = (props) => {
                 window.location.reload();
             }
         });
+
     };
 
     return (
@@ -133,7 +135,7 @@ const TaskInfoScreen = (props) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/task" type="button" class="btn" name="button">
+                                <Link to="/manager-task" type="button" class="btn" name="button">
                                     My tasks
                                 </Link>
                             </li>
@@ -167,13 +169,23 @@ const TaskInfoScreen = (props) => {
                             <table class="task-info-tbl">
                                 <tr>
                                     <td><div class="task-header">{info.title}</div></td>
-                                    <td rowspan="2">
-                                        {info.status === 'complete' ? <p class='complete'>Completed</p> : <button onClick={Complete} class="complete">Complete</button>}
-                                    </td>
+                                    {task_type === 'assigned' ?
+                                        <td rowspan="2">
+                                            Status: {info.status}
+                                        </td> :
+                                        <td rowspan="2">
+                                            {info.status === 'complete' ? <p class='complete'>Completed</p> : <button onClick={Complete} class="complete">Complete</button>}
+                                        </td>
+                                    }
                                 </tr>
                                 <tr>
                                     <td><div class="due-date">Due {moment(info.due_date).format('MMMM DD')} by {moment(info.due_time, "HH:mm:ss").format("hh:mm A")}</div></td>
                                 </tr>
+                                {task_type === 'assigned' ?
+                                    <tr>
+                                        <td><div class="due-date">{"Assigned to: " + info.FName + " " + info.LName}</div></td>
+                                    </tr> : <tr></tr>
+                                }
                                 <tr>
                                     <td><div class="desc"> {info.description}</div></td>
                                 </tr>
@@ -201,4 +213,4 @@ const TaskInfoScreen = (props) => {
     );
 }
 
-export default TaskInfoScreen;
+export default ManagerTaskInfoScreen;
