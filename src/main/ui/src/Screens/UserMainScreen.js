@@ -10,6 +10,7 @@ import axios from "axios";
 function UserMainScreen() {
     const [info, setInfo] = useState([]);
     var id = localStorage.getItem("ID");
+    var pos = localStorage.getItem("Position");
 
     var closed = false;
     function btnClick() {
@@ -117,9 +118,13 @@ function UserMainScreen() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/task" type="button" className="btn" name="button">
+                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ? 
+                                <Link to="/manager-task" type="button" className="btn" name="button">
                                     My tasks
-                                </Link>
+                                </Link> : <Link to="/task" type="button" className="btn" name="button">
+                                    My tasks
+                                </Link> 
+                                }
                             </li>
                             <li>
                                 <Link to="/calendar" type="button" className="btn" name="button">

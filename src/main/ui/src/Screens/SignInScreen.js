@@ -26,6 +26,7 @@ function SigninScreen(props) {
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("ID", response.data.ID);
+        localStorage.setItem("Position", response.data.Position);
         props.history.push("/main");
         // setLoginStatus(response.data.message);
       } else {

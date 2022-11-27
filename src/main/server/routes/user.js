@@ -14,17 +14,44 @@ router.post("/register", (req, res) => {
   const password = req.body.password;
   const comfPassword = req.body.comfPassword;
 
-  db.query(
-    "INSERT INTO employees (ID, Fname, Lname, email, password, comfPassword) VALUES (?,?,?,?,?,?)",
-    [ID, Fname, Lname, email, password, comfPassword], //elements in the array represent the ?s
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Values Inserted");
+  if (ID === "") {
+    res.json({
+      registerSuccess: false,
+      message: "Missing ID!",
+    });
+  } else if (Fname === "" || Lname === "") {
+    res.json({
+      registerSuccess: false,
+      message: "Missing Name!",
+    });
+  } else if (email === "") {
+    res.json({
+      registerSuccess: false,
+      message: "Missing Email!",
+    });
+  } else if (password === "") {
+    res.json({
+      registerSuccess: false,
+      message: "Missing Password!",
+    });
+  } else if (password != comfPassword) {
+    res.json({
+      registerSuccess: false,
+      message: "Passwords do not match!",
+    });
+  } else {
+    db.query(
+      "INSERT INTO employees (ID, Fname, Lname, email, password, comfPassword) VALUES (?,?,?,?,?,?)",
+      [ID, Fname, Lname, email, password, comfPassword], //elements in the array represent the ?s
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.json({ registerSuccess: true });
+        }
       }
-    }
-  );
+    );
+  }
 });
 
 //send employee data to retrieve employee info
@@ -42,7 +69,8 @@ router.post("/login", (req, res) => {
       }
       if (result.length > 0) {
         if (password == result[0].password) {
-          res.json({ loggedIn: true, ID: ID });
+          console.log(result)
+          res.json({ loggedIn: true, ID: ID, Position: result[0].Position });
         } else {
           res.json({
             loggedIn: false,

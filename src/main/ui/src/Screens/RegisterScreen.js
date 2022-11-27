@@ -11,6 +11,7 @@ const RegisterScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [comfPassword, setComfPassword] = useState("");
+  const [RegisterStatus, setRegisterStatus] = useState("");
 
   //function to make an object and send data to backend
   const Register = () => {
@@ -24,8 +25,12 @@ const RegisterScreen = (props) => {
       password: password,
       comfPassword: comfPassword,
     }).then((response) => {
-      console.log(response);
-      props.history.push("/signin");
+      if (response.data.registerSuccess) {
+        console.log(response);
+        props.history.push("/signin");
+      } else {
+        setRegisterStatus(response.data.message);
+      }
     });
   };
 
@@ -85,6 +90,7 @@ const RegisterScreen = (props) => {
           <button onClick={Register} type="submit" className="registerbtn">
             Register
           </button>
+          <h4 style={{ color: "red" }}>{RegisterStatus}</h4>
         </div>
       </form>
     </div>
