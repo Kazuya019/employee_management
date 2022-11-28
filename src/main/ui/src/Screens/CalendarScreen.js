@@ -6,18 +6,34 @@ import close from "./images/close-sidebar.jpg";
 import open from "./images/open-sidebar.jpg";
 import React, { useState } from "react";
 import moment from "moment";
-import {
-  BsFillCaretRightFill,
-  BsFillCaretDownFill,
-  BsCheckCircle,
-} from "react-icons/bs";
+import { BsFillCaretRightFill } from "react-icons/bs";
+import Axios from "axios";
 
 function CalendarScreen() {
-  const [isAction, setIsAction] = useState(false);
+  var id = localStorage.getItem("ID");
+  var pos = localStorage.getItem("Position");
 
+  const [isAction, setIsAction] = useState(false);
   const [dateState, setDateState] = useState(new Date());
+  const [cTaskInfo, setCalendarTaskInfo] = useState([]);
+  const [cHolidayInfo, setCalendarHolidayInfo] = useState("");
+
   const changeDate = (e) => {
     setDateState(e);
+    // get tasks due on the day
+    Axios.post("http://localhost:3001/calendar/calendar-task-info", {
+      ID: id,
+      date: moment(e).format('YYYY-MM-DD')
+    }).then((response) => {
+      setCalendarTaskInfo(response.data.contents);
+    });
+    // get holidays on the day
+    Axios.post("http://localhost:3001/calendar/calendar-hol-info", {
+      ID: id,
+      date: moment(e).format('YYYY-MM-DD')
+    }).then((response) => {
+      setCalendarHolidayInfo(response.data.contents);
+    });
   };
 
   var closed = false;
@@ -65,9 +81,13 @@ function CalendarScreen() {
                 </Link>
               </li>
               <li>
-                <Link to="/task" type="button" class="btn" name="button">
-                  My tasks
-                </Link>
+                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ?
+                  <Link to="/manager-task" type="button" className="btn" name="button">
+                    My tasks
+                  </Link> : <Link to="/task" type="button" className="btn" name="button">
+                    My tasks
+                  </Link> 
+                }
               </li>
               <li>
                 <Link to="/calendar" type="button" class="btn" name="button">
@@ -95,10 +115,16 @@ function CalendarScreen() {
           <Calendar value={dateState} onChange={changeDate} />
           <div className="" onClick={() => setIsAction(!isAction)}>
             <div>{isAction ? <BsFillCaretRightFill /> : ""}</div>
-            <p className="date-print">
-              Current selected date is{" "}
-              <b>{moment(dateState).format("MMMM Do YYYY")}</b>
-            </p>
+            <div class='schedule'>
+              <p className="date-print">
+                Current selected date is{" "}
+                <b>{moment(dateState).format("MMMM Do YYYY")}</b>
+              </p>
+              {cTaskInfo.map((info) => (
+                <p className="date-print">{info.title} due at {moment(info.due_time, "HH:mm:ss").format("hh:mm A")}</p>
+              ))}
+              <p className="date-print">{cHolidayInfo}</p>
+            </div>
           </div>
         </div>
       </div>
