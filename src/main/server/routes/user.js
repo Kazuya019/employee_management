@@ -40,17 +40,35 @@ router.post("/register", (req, res) => {
       message: "Passwords do not match!",
     });
   } else {
-    db.query(
-      "INSERT INTO employees (ID, Fname, Lname, email, password, comfPassword) VALUES (?,?,?,?,?,?)",
-      [ID, Fname, Lname, email, password, comfPassword], //elements in the array represent the ?s
-      (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.json({ registerSuccess: true });
-        }
+    db.query("SELECT * FROM company_info WHERE ID=?", [ID], (err, result) => {
+      if (result.length == 0) {
+        res.json({
+          registerSuccess: false,
+          message: "Could not find employee in company!",
+        });
+      } else {
+        db.query("SELECT * FROM employees WHERE ID=?", [ID], (err, result) => {
+          if (result.length > 0) {
+            res.json({
+              registerSuccess: false,
+              message: "Already registered!",
+            });
+          } else {
+            db.query(
+              "INSERT INTO employees (ID, Fname, Lname, email, password, comfPassword) VALUES (?,?,?,?,?,?)",
+              [ID, Fname, Lname, email, password, comfPassword], //elements in the array represent the ?s
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.json({ registerSuccess: true });
+                }
+              }
+            );
+          }
+        });
       }
-    );
+    });
   }
 });
 
@@ -60,7 +78,7 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   db.query(
-    "SELECT * FROM employees WHERE ID = ?",
+    "SELECT * FROM employees NATURAL JOIN company_info WHERE ID = ?",
     [ID, password],
     (err, result) => {
       if (err) {
@@ -70,7 +88,7 @@ router.post("/login", (req, res) => {
       if (result.length > 0) {
         if (password == result[0].password) {
           console.log(result)
-          res.json({ loggedIn: true, ID: ID, Position: result[0].Position });
+          res.json({ loggedIn: true, ID: ID, Position: result[0].position });
         } else {
           res.json({
             loggedIn: false,

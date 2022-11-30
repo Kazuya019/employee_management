@@ -10,6 +10,7 @@ import close from './images/close-sidebar.jpg';
 import open from  './images/open-sidebar.jpg';
 
 function UserMessageScreen() {
+    var pos = localStorage.getItem("Position");
     
     var closed = false;
     function btnClick() {
@@ -78,12 +79,16 @@ function UserMessageScreen() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/signin" type="button" class="btn" name="button">
-                                    My tasks
-                                </Link>
+                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ? 
+                                    <Link to="/manager-task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link> : <Link to="/task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link> 
+                                }
                             </li>
                             <li>
-                                <Link to="/signin" type="button" class="btn" name="button">
+                                <Link to="/calendar" type="button" class="btn" name="button">
                                     Calendar
                                 </Link>
                             </li>
@@ -93,7 +98,7 @@ function UserMessageScreen() {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/signin" type="button" class="btn" name="button">
+                                <Link to="/payroll" type="button" class="btn" name="button">
                                     Payroll
                                 </Link>
                             </li>

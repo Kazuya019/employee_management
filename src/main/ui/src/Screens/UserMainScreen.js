@@ -2,15 +2,18 @@ import React, { useEffect } from "react";
 import "./UserMainScreen.css";
 import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
-import open from  './images/open-sidebar.jpg';
-import {useState} from "react";
+import open from './images/open-sidebar.jpg';
+import { useState } from "react";
 import { Suspense } from "react";
-import axios from "axios";
+import Axios from "axios";
+import moment from "moment";
+
 
 function UserMainScreen() {
     const [info, setInfo] = useState([]);
     var id = localStorage.getItem("ID");
     var pos = localStorage.getItem("Position");
+    var today = moment().format('YYYY-MM-DD');
 
     var closed = false;
     function btnClick() {
@@ -28,10 +31,10 @@ function UserMainScreen() {
     }
 
     useEffect(() => {
-        const fetchPosDep = async ()=> {
+        const fetchPosDep = async () => {
 
             try {
-                const res = await axios.get("http://localhost:3001/main", {
+                const res = await Axios.get("http://localhost:3001/main", {
                     params: {
                         ID: id
                     }
@@ -42,19 +45,31 @@ function UserMainScreen() {
             }
         }
         fetchPosDep();
-    },[ ]);
+    }, []);
 
     var timer = new Date();
-    
+    const [ClockInStatus, setClockInStatus] = useState("");
+    const [ClockOutStatus, setClockOutStatus] = useState("");
+
     function clickIn() {
-    
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-in", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockInStatus(response.data.message);
+        });
+
         const mask = document.getElementById("modal-overlay");
         const modal = document.getElementById("modal");
 
         mask.classList.remove("hidden");
         modal.classList.remove('hidden');
 
-        localStorage.setItem("Clock in", timer.getHours())
+        localStorage.setItem("Clock in", timer.toLocaleTimeString())
+        console.log(moment().format('HH:mm'));
 
         mask.addEventListener('click', () => {
             mask.classList.add('hidden');
@@ -62,25 +77,35 @@ function UserMainScreen() {
         });
     }
 
+
     function clickOut() {
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-out", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockOutStatus(response.data.message);
+        });
+
         const mask = document.getElementById("modal-overlay");
         const modal = document.getElementById("modal-out");
 
         mask.classList.remove("hidden");
         modal.classList.remove('hidden');
 
-        localStorage.setItem("Clock out", timer.getHours())
-
+        localStorage.setItem("Clock out", timer.toLocaleTimeString())
 
         mask.addEventListener('click', () => {
             mask.classList.add('hidden');
             modal.classList.add('hidden');
         });
     }
-    
+
 
     return (
-        
+
         <div className="grid-container" >
             <div className="hidden" id="modal-overlay"></div>
             <header className="header">
@@ -90,24 +115,24 @@ function UserMainScreen() {
                 <div className="clockin-out">
                     <ul>
                         <li>
-                        <button className="clock-btn" id="btn" onClick={clickIn}>
-                            Clock in
-                        </button>
+                            <button className="clock-btn" id="btn" onClick={clickIn}>
+                                Clock in
+                            </button>
                         </li>
                         <li>
-                        <button className="clock-btn" id="btn-out" onClick={clickOut}>
-                            Clock out
-                        </button>
+                            <button className="clock-btn" id="btn-out" onClick={clickOut}>
+                                Clock out
+                            </button>
                         </li>
                     </ul>
                 </div>
-                
+
             </header>
             <div className="container" >
                 <aside className="side-bar" id="side-menu">
                     <div>
                         <button className="sidebar-close-button" onClick={btnClick}>
-                            <img src={close} alt="close" className="close-btn" name='side'/>
+                            <img src={close} alt="close" className="close-btn" name='side' />
                         </button>
                     </div>
                     <div id="side" className="side">
@@ -118,12 +143,12 @@ function UserMainScreen() {
                                 </Link>
                             </li>
                             <li>
-                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ? 
-                                <Link to="/manager-task" type="button" className="btn" name="button">
-                                    My tasks
-                                </Link> : <Link to="/task" type="button" className="btn" name="button">
-                                    My tasks
-                                </Link> 
+                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ?
+                                    <Link to="/manager-task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link> : <Link to="/task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link>
                                 }
                             </li>
                             <li>
@@ -147,23 +172,23 @@ function UserMainScreen() {
                                 Log out
                             </button>
                         </Link>
-                        
+
                     </div>
                 </aside>
 
                 <div className="main-contents">
                     <div id="modal" className="hidden">
-                        <p>Clock in Success</p>
+                        <p>{ClockInStatus}</p>
                     </div>
                     <div id="modal-out" className="hidden">
-                        <p>Clock Out Success</p>
+                        <p>{ClockOutStatus}</p>
                     </div>
-                    {info.map(detail=>(
-                        <div className="user-icon"> 
+                    {info.map(detail => (
+                        <div className="user-icon">
                             Employee Name: {detail.FName} {detail.LName}
                         </div>
-                    ))}  
-                    {info.map(detail=>(
+                    ))}
+                    {info.map(detail => (
                         <div className="user-info">
                             <ul>
                                 <li>Employee ID: {detail.ID} </li>
@@ -172,12 +197,12 @@ function UserMainScreen() {
                             </ul>
                         </div>
                     ))}
-                    
+
                 </div>
-            
+
             </div>
         </div>
-        
+
     );
 }
 

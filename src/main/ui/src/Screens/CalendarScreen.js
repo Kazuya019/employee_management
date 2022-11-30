@@ -100,7 +100,7 @@ function CalendarScreen() {
                 </Link>
               </li>
               <li>
-                <Link to="/signin" type="button" class="btn" name="button">
+                <Link to="/payroll" type="button" class="btn" name="button">
                   Payroll
                 </Link>
               </li>
