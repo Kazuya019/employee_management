@@ -144,8 +144,65 @@ function PayrollScreen() {
     const thisWeekEnd = moment().day(5).format("M/D")
     const payDay = moment().day(5).format("MM/DD/YYYY")
 
+    var timer = new Date();
+    const [ClockInStatus, setClockInStatus] = useState("");
+    const [ClockOutStatus, setClockOutStatus] = useState("");
+    var today = moment().format('YYYY-MM-DD');
+
+    function clickIn() {
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-in", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockInStatus(response.data.message);
+        });
+
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock in", timer.toLocaleTimeString())
+        console.log(moment().format('HH:mm'));
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+
+    function clickOut() {
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-out", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockOutStatus(response.data.message);
+        });
+
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal-out");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock out", timer.toLocaleTimeString())
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+
     return (
         <div class="grid-container">
+            <div className="hidden" id="modal-overlay"></div>
             <header class="header">
                 <div class="title">
                     Connecteam+
@@ -153,12 +210,12 @@ function PayrollScreen() {
                 <div class="clockin-out">
                     <ul>
                         <li>
-                            <button class="clock-btn">
+                            <button className="clock-btn" id="btn" onClick={clickIn}>
                                 Clock in
                             </button>
                         </li>
                         <li>
-                            <button class="clock-btn">
+                            <button className="clock-btn" id="btn-out" onClick={clickOut}>
                                 Clock out
                             </button>
                         </li>
@@ -213,6 +270,12 @@ function PayrollScreen() {
                     </div>
                 </aside>
                 <div class="main-contents">
+                    <div id="modal" className="hidden">
+                        <p>{ClockInStatus}</p>
+                    </div>
+                    <div id="modal-out" className="hidden">
+                        <p>{ClockOutStatus}</p>
+                    </div>
                     <div class="timecard">
                         <div class="section-title"><h3>Timecard</h3></div>
                         <hr></hr>

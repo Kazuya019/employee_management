@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
 import open from './images/open-sidebar.jpg';
 import Axios from "axios";
+import moment from "moment";
+
 
 const ManagerCreateTaskScreen = (props) => {
     var id = localStorage.getItem("ID");
@@ -78,8 +80,66 @@ const ManagerCreateTaskScreen = (props) => {
         event.preventDefault(); //to prevent the page gets reloaded when we click on the submit button, so that it does not send any data to the server
     };
 
+    var timer = new Date();
+    var today = moment().format('YYYY-MM-DD');
+    const [ClockInStatus, setClockInStatus] = useState("");
+    const [ClockOutStatus, setClockOutStatus] = useState("");
+
+    function clickIn() {
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-in", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockInStatus(response.data.message);
+        });
+
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock in", timer.toLocaleTimeString())
+        console.log(moment().format('HH:mm'));
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+
+
+    function clickOut() {
+        var time = moment().format('HH:mm');
+        Axios.post("http://localhost:3001/main/clock-out", {
+            //pass data received from input to backend
+            employee_id: id,
+            date: today,
+            time: time,
+        }).then((response) => {
+            setClockOutStatus(response.data.message);
+        });
+
+        const mask = document.getElementById("modal-overlay");
+        const modal = document.getElementById("modal-out");
+
+        mask.classList.remove("hidden");
+        modal.classList.remove('hidden');
+
+        localStorage.setItem("Clock out", timer.toLocaleTimeString())
+
+        mask.addEventListener('click', () => {
+            mask.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+
     return (
         <div class="grid-container">
+            <div className="hidden" id="modal-overlay"></div>
             <header class="header">
                 <div class="title">
                     Connecteam+
@@ -87,12 +147,12 @@ const ManagerCreateTaskScreen = (props) => {
                 <div class="clockin-out">
                     <ul>
                         <li>
-                            <button class="clock-btn">
+                            <button className="clock-btn" id="btn" onClick={clickIn}>
                                 Clock in
                             </button>
                         </li>
                         <li>
-                            <button class="clock-btn">
+                            <button className="clock-btn" id="btn-out" onClick={clickOut}>
                                 Clock out
                             </button>
                         </li>
@@ -145,6 +205,12 @@ const ManagerCreateTaskScreen = (props) => {
                 </aside>
 
                 <div class="main-contents">
+                    <div id="modal" className="hidden">
+                        <p>{ClockInStatus}</p>
+                    </div>
+                    <div id="modal-out" className="hidden">
+                        <p>{ClockOutStatus}</p>
+                    </div>
                     <form onSubmit={CreateHandler}>
                         <div className="table">
                             <label className="title">Create Task</label>
