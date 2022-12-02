@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import "./TaskScreen.css";
+import React, { useEffect } from "react";
 import "./UserMainScreen.css";
-import close from "./images/close-sidebar.jpg";
-import open from "./images/open-sidebar.jpg";
+import "./PeopleScreen.css";
 import { Link } from "react-router-dom";
-import { BsCheckCircle, BsFillCheckCircleFill } from "react-icons/bs";
+import close from './images/close-sidebar.jpg';
+import open from './images/open-sidebar.jpg';
+import { useState } from "react";
 import Axios from "axios";
 import moment from "moment";
 
 
-const TaskScreen = (props) => {
+function UserMainScreen() {
+    const [info, setInfo] = useState([]);
     var id = localStorage.getItem("ID");
+    var pos = localStorage.getItem("Position");
+    var today = moment().format('YYYY-MM-DD');
 
     var closed = false;
     function btnClick() {
@@ -27,31 +30,22 @@ const TaskScreen = (props) => {
         }
     }
 
-    const [ltask, setTask] = useState([]);
-
-    // function to fetch the data from database
-    const getTaskData = async () => {
-        try {
-            Axios.get("http://localhost:3001/task/task", {
-                params: { id: id }
-            }).then((response) => {
-                console.log(response.data);
-                setTask(response.data);
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // React Hook that executes the fetch function on the first render 
     useEffect(() => {
-        getTaskData();
+        const fetchPosDep = async () => {
+
+            try {
+                const res = await Axios.get("http://localhost:3001/people", {});
+                setInfo(res.data);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchPosDep();
     }, []);
 
     var timer = new Date();
     const [ClockInStatus, setClockInStatus] = useState("");
     const [ClockOutStatus, setClockOutStatus] = useState("");
-    var today = moment().format('YYYY-MM-DD');
 
     function clickIn() {
         var time = moment().format('HH:mm');
@@ -80,7 +74,6 @@ const TaskScreen = (props) => {
     }
 
 
-
     function clickOut() {
         var time = moment().format('HH:mm');
         Axios.post("http://localhost:3001/main/clock-out", {
@@ -106,14 +99,16 @@ const TaskScreen = (props) => {
         });
     }
 
+
     return (
-        <div class="grid-container">
+
+        <div className="grid-container" >
             <div className="hidden" id="modal-overlay"></div>
-            <header class="header">
-                <div class="title">
+            <header className="header">
+                <div className="title">
                     Connecteam+
                 </div>
-                <div class="clockin-out">
+                <div className="clockin-out">
                     <ul>
                         <li>
                             <button className="clock-btn" id="btn" onClick={clickIn}>
@@ -127,38 +122,43 @@ const TaskScreen = (props) => {
                         </li>
                     </ul>
                 </div>
+
             </header>
-            <div class="container">
-                <aside class="side-bar" id="side-menu">
+            <div className="container" >
+                <aside className="side-bar" id="side-menu">
                     <div>
-                        <button class="sidebar-close-button" onClick={btnClick}>
-                            <img src={close} alt="close" class="close-btn" name="side" />
+                        <button className="sidebar-close-button" onClick={btnClick}>
+                            <img src={close} alt="close" className="close-btn" name='side' />
                         </button>
                     </div>
-                    <div id="side" class="side">
-                        <ul class="side-buttons">
+                    <div id="side" className="side">
+                        <ul className="side-buttons">
                             <li>
-                                <Link to="/main" type="button" class="btn" name="button">
+                                <Link to="/main" type="button" className="btn" name="button">
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/task" type="button" class="btn" name="button">
-                                    My tasks
-                                </Link>
+                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ?
+                                    <Link to="/manager-task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link> : <Link to="/task" type="button" className="btn" name="button">
+                                        My tasks
+                                    </Link>
+                                }
                             </li>
                             <li>
-                                <Link to="/calendar" type="button" class="btn" name="button">
+                                <Link to="/calendar" type="button" className="btn" name="button">
                                     Calendar
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/message" type="button" class="btn" name="button">
+                                <Link to="/message" type="button" className="btn" name="button">
                                     Messages
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/payroll" type="button" class="btn" name="button">
+                                <Link to="/payroll" type="button" className="btn" name="button">
                                     Payroll
                                 </Link>
                             </li>
@@ -168,63 +168,48 @@ const TaskScreen = (props) => {
                                 </Link>
                             </li>
                         </ul>
-                        <Link to="/signin" type="button" class="btn-underline">
-                            <button class="logout">
+                        <Link to="/signin" type="button" className="btn-underline">
+                            <button className="logout">
                                 Log out
                             </button>
                         </Link>
 
                     </div>
                 </aside>
-                <div class="main-contents">
+
+                <div className="main-contents">
                     <div id="modal" className="hidden">
                         <p>{ClockInStatus}</p>
                     </div>
                     <div id="modal-out" className="hidden">
                         <p>{ClockOutStatus}</p>
                     </div>
-                    <div class="task-info">
-                        <table class="task-table">
-                            <tr>
-                                <th>Task Name</th>
-                                <th>Due Date</th>
-                                <th>Priority</th>
+                    <div className="table">
+                        <table>
+                            <tr className="title">
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
                             </tr>
-                            {ltask.map((task) => (
-                                <tr>
-                                    <th>
-                                        <div class="center-icon">
-                                            <>
-                                                {task.status === 'complete' ? <BsFillCheckCircleFill class="icon" /> : <BsCheckCircle class="icon" />}
-                                            </>
-                                            <Link to={{
-                                                pathname: "/task-info",
-                                                state: {
-                                                    userinfo: {
-                                                        taskid: task.task_id,
-                                                        type: 'own'
-                                                    }
-                                                }
-                                            }}
-                                                type="button" class="task-btn" name="task-button">
-                                                {task.title}
-                                            </Link>
-                                        </div>
-                                    </th>
-                                    <th>{moment(task.due_date).format('MM/DD/YY')}</th>
-                                    <th>{task.priority}</th>
+                            
+                            {info.map(detail => (
+                                <tr className="detail">
+                                    <td>{detail.FName} {detail.LName}</td>
+                                    <td>{detail.Position}</td>
+                                    <td>{detail.Department}</td>
                                 </tr>
                             ))}
-
                         </table>
                     </div>
-                    <div>
+                    
 
-                    </div>
+
                 </div>
+
             </div>
         </div>
+
     );
 }
 
-export default TaskScreen;
+export default UserMainScreen;

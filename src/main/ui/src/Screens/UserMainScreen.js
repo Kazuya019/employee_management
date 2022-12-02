@@ -166,6 +166,11 @@ function UserMainScreen() {
                                     Payroll
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/people" type="button" className="btn" name="button">
+                                    People
+                                </Link>
+                            </li>
                         </ul>
                         <Link to="/signin" type="button" className="btn-underline">
                             <button className="logout">
@@ -191,7 +196,10 @@ function UserMainScreen() {
                     {info.map(detail => (
                         <div className="user-info">
                             <ul>
-                                <li>Employee ID: {detail.ID} </li>
+                                <li>
+                                    <div>Employee ID:</div> 
+                                    <div>{detail.ID}</div>
+                                </li>
                                 <li>Department: {detail.Department} </li>
                                 <li>Position: {detail.Position}</li>
                             </ul>

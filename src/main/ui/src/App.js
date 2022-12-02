@@ -14,7 +14,7 @@ import PayrollScreen from "./Screens/PayrollScreen";
 import ManagerTaskScreen from "./Screens/ManagerTaskScreen";
 import ManagerCreateTaskScreen from "./Screens/ManagerCreateTaskScreen";
 import ManagerTaskInfoScreen from "./Screens/ManagerTaskInfoScreen";
-
+import PeopleScreen from "./Screens/PeopleScreen";
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
       <Route path="/manager-task" component={ManagerTaskScreen}></Route>
       <Route path="/manager-create-task" component={ManagerCreateTaskScreen}></Route>
       <Route path="/manager-task-info" component={ManagerTaskInfoScreen}></Route>
+      <Route path="/people" component={PeopleScreen}></Route>
     </BrowserRouter>
   );
 }

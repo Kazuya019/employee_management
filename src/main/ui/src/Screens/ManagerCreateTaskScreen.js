@@ -194,6 +194,11 @@ const ManagerCreateTaskScreen = (props) => {
                                     Payroll
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/people" type="button" className="btn" name="button">
+                                    People
+                                </Link>
+                            </li>
                         </ul>
                         <Link to="/signin" type="button" class="btn-underline">
                             <button class="logout">

@@ -24,6 +24,9 @@ app.use("/calendar", calendarRoute);
 const payrollRoute = require("./routes/payroll");
 app.use("/payroll", payrollRoute);
 
+const peopleRoute = require("./routes/people");
+app.use("/people", peopleRoute);
+
 //API will first write on the root address
 // app.get("/", (req, res) => {
 //   res.send("First request!!!!!!");
