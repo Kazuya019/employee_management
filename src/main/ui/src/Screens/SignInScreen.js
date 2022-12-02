@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import "./SignInScreen.css";
 import logo from "./images/left.png";
 import logos from "./images/right.png";
@@ -10,10 +9,6 @@ function SigninScreen(props) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [LoginStatus, setLoginStatus] = useState("");
-
-  // useEffect(() => {
-  //   return () => {};
-  // }, []);
 
   //function to retrieve data from backend
   const Login = () => {
@@ -71,4 +66,5 @@ function SigninScreen(props) {
     </div>
   );
 }
+
 export default SigninScreen;

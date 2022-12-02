@@ -242,7 +242,7 @@ const ManagerTaskInfoScreen = (props) => {
                                     <td><div class="task-header">{info.title}</div></td>
                                     {task_type === 'assigned' ?
                                         <td rowspan="2">
-                                            Status: {info.status}
+                                            <div style={{color: '#1329a6', fontWeight: 'bold', textDecoration: 'underline'}}>Status:</div> {info.status}
                                         </td> :
                                         <td rowspan="2">
                                             {info.status === 'complete' ? <p class='complete'>Completed</p> : <button onClick={Complete} class="complete">Complete</button>}
@@ -272,8 +272,8 @@ const ManagerTaskInfoScreen = (props) => {
                         </div>
                         <div class="form-group">
                             <form>
-                                <input type="text" placeholder="Comments..." id="content"
-                                    onChange={(event) => setContent(event.target.value)}></input>
+                                <textarea type="text" placeholder="Comments..." id="content"
+                                    onChange={(event) => setContent(event.target.value)}></textarea>
                                 <button onClick={Comment} type="submit" class="comment">Send</button>
                             </form>
                         </div>

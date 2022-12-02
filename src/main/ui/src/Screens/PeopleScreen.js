@@ -30,9 +30,11 @@ function UserMainScreen() {
         }
     }
 
+    const [view, setView] = useState("");
+    const [pInfo, setPInfo] = useState([]);
+
     useEffect(() => {
         const fetchPosDep = async () => {
-
             try {
                 const res = await Axios.get("http://localhost:3001/people", {});
                 setInfo(res.data);
@@ -42,6 +44,23 @@ function UserMainScreen() {
         }
         fetchPosDep();
     }, []);
+
+
+    const Filter = () => {
+        console.log(view);
+        Axios.post("http://localhost:3001/people/special", {
+            //pass data received from input to backend
+            ID: id,
+            type: view
+        }).then((response) => {
+            setPInfo(response.data);
+        });
+    };
+
+    const FilterHandler = (event) => {
+        event.preventDefault(); //to prevent the page gets reloaded when we click on the submit button, so that it does not send any data to the server
+    };
+
 
     var timer = new Date();
     const [ClockInStatus, setClockInStatus] = useState("");
@@ -101,7 +120,6 @@ function UserMainScreen() {
 
 
     return (
-
         <div className="grid-container" >
             <div className="hidden" id="modal-overlay"></div>
             <header className="header">
@@ -184,31 +202,62 @@ function UserMainScreen() {
                     <div id="modal-out" className="hidden">
                         <p>{ClockOutStatus}</p>
                     </div>
+                    <div class='choice'>
+                        <form onSubmit={FilterHandler}>
+                            <label class='filter'>Filter</label>
+                            <select className="sel-filter"
+                                value={view}
+                                onChange={e => setView(e.target.value)}>
+                                <option value="">- Select -</option>
+                                <option value="All">All</option>
+                                <option value="Manager">Your Manager</option>
+                                <option value="Team">Your Team</option>
+                                {pos === 'Manager' || pos === 'Director' || pos === 'CEO' ?
+                                    <option value="Emp">Your Subordinates</option> : <></>
+                                }
+                            </select>
+                            <button onClick={Filter} className="submit-sel">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+
                     <div className="table">
                         <table>
                             <tr className="title">
                                 <th>Name</th>
                                 <th>Position</th>
                                 <th>Department</th>
+                                <th>Email</th>
                             </tr>
-                            
-                            {info.map(detail => (
-                                <tr className="detail">
-                                    <td>{detail.FName} {detail.LName}</td>
-                                    <td>{detail.Position}</td>
-                                    <td>{detail.Department}</td>
-                                </tr>
-                            ))}
+                            {pInfo.length == 0 ?
+                                <>
+                                    {info.map(detail => (
+                                        <tr className="detail">
+                                            <td>{detail.FName} {detail.LName}</td>
+                                            <td>{detail.Position}</td>
+                                            <td>{detail.Department}</td>
+                                            <td>{detail.email}</td>
+                                        </tr>
+                                    ))}
+                                </>
+                                :
+                                <>
+                                    {pInfo.map(detail => (
+                                        <tr className="detail">
+                                            <td>{detail.FName} {detail.LName}</td>
+                                            <td>{detail.Position}</td>
+                                            <td>{detail.Department}</td>
+                                            <td>{detail.email}</td>
+                                        </tr>
+                                    ))}
+                                </>
+                            }
                         </table>
                     </div>
-                    
-
-
                 </div>
-
             </div>
         </div>
-
     );
 }
 

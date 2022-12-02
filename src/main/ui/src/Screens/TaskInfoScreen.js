@@ -194,8 +194,8 @@ const TaskInfoScreen = (props) => {
                         </div>
                         <div class="form-group">
                             <form>
-                                <input type="text" placeholder="Comments..." id="content"
-                                    onChange={(event) => setContent(event.target.value)}></input>
+                                <textarea type="text" placeholder="Comments..." id="content"
+                                    onChange={(event) => setContent(event.target.value)}></textarea>
                                 <button onClick={Comment} type="submit" class="comment">Send</button>
                             </form>
                         </div>

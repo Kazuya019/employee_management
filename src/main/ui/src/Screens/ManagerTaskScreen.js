@@ -235,8 +235,8 @@ const ManagerTaskScreen = (props) => {
                                     <th>{task.priority}</th>
                                 </tr>
                             ))}
-                            <tr>
-                                <th colSpan={3}>Tasks assigned to team members</th>
+                            <tr style={{backgroundColor: '#DFF6FF'}}>
+                                <th colSpan={3} style={{padding: '20px'}}>Tasks assigned to team members</th>
                             </tr>
                             {latask.map((atask) => (
                                 <tr>

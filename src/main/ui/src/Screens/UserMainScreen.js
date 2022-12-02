@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
 import open from './images/open-sidebar.jpg';
 import { useState } from "react";
-import { Suspense } from "react";
 import Axios from "axios";
 import moment from "moment";
 
@@ -189,28 +188,36 @@ function UserMainScreen() {
                         <p>{ClockOutStatus}</p>
                     </div>
                     {info.map(detail => (
-                        <div className="user-icon">
-                            Employee Name: {detail.FName} {detail.LName}
-                        </div>
+                    <>
+                    <div className="emp-table">
+                        <table class='emp-info'>
+                            <tr className="title-head">
+                                <th>Employee Name</th>
+                            </tr>
+                            <tr className="detail-emp">
+                                <td>{detail.FName} {detail.LName}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="emp-table">
+                        <table class='emp-info'>
+                            <tr className="title-head">
+                                <th>Employee ID</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                            </tr>
+                            <tr className="detail-emp">
+                                <td>{detail.ID}</td>
+                                <td>{detail.Department}</td>
+                                <td>{detail.Position}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    </>
                     ))}
-                    {info.map(detail => (
-                        <div className="user-info">
-                            <ul>
-                                <li>
-                                    <div>Employee ID:</div> 
-                                    <div>{detail.ID}</div>
-                                </li>
-                                <li>Department: {detail.Department} </li>
-                                <li>Position: {detail.Position}</li>
-                            </ul>
-                        </div>
-                    ))}
-
                 </div>
-
             </div>
         </div>
-
     );
 }
 

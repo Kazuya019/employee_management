@@ -87,7 +87,7 @@ button.clock-btn:hover {
   display: flex;
   justify-content: flex-start;
   min-height: 80vh;
-  
+
 }
 
 .main-contents {
@@ -96,25 +96,6 @@ button.clock-btn:hover {
   padding: 10px;
   padding-left: 60px;
   background-color: white;
-}
-
-.user-icon {
-  text-align: center;
-  font-weight: 300;
-  font-size: 1.5rem;
-}
-
-.user-info ul {
-  display: flex;
-
-}
-
-.user-info ul li {
-  list-style: none;
-  width: 100%;
-  padding: 10px 10px 10px 10px;
-  font-weight: 300;
-  font-size: 1.5rem;
 }
 
 /* Sidebar */
@@ -254,4 +235,34 @@ button.clock-btn:hover {
   text-align: center;
   margin: 0 auto;
   z-index: 2;
+}
+
+.title-head th {
+  border-bottom: solid 2px black;
+  width: 24%;
+  font-size: large;
+  color: #1329a6;
+  text-align: center;
+}
+
+.detail-emp {
+  font-weight: bold;
+  background-color: #DFF6FF;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+table.emp-info {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: separate;
+  border-spacing: 20px 0px;
+  width: 72%;
+  height: 100%;
+}
+
+.emp-table {
+  margin-top: 15px;
+  padding-bottom: 50px;
+  display: grid;
 }
