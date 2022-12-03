@@ -1,5 +1,5 @@
 # Advanced Employee Management System
-
+Link to the github: [Link](https://github.com/Kazuya019/employee_management)
 
 ## Code / File Structure
 1. Employee_management/src/main is where all the development occurred.
