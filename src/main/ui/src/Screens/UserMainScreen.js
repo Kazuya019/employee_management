@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import close from './images/close-sidebar.jpg';
 import open from './images/open-sidebar.jpg';
 import { useState } from "react";
-import { Suspense } from "react";
 import Axios from "axios";
 import moment from "moment";
 import icon from './images/profile-default.png';
