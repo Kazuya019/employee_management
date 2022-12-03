@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Suspense } from "react";
 import Axios from "axios";
 import moment from "moment";
+import icon from './images/profile-default.png';
 
 
 function UserMainScreen() {
@@ -189,20 +190,30 @@ function UserMainScreen() {
                         <p>{ClockOutStatus}</p>
                     </div>
                     {info.map(detail => (
-                        <div className="user-icon">
-                            Employee Name: {detail.FName} {detail.LName}
-                        </div>
-                    ))}
-                    {info.map(detail => (
-                        <div className="user-info">
-                            <ul>
-                                <li>
-                                    <div>Employee ID:</div> 
-                                    <div>{detail.ID}</div>
-                                </li>
-                                <li>Department: {detail.Department} </li>
-                                <li>Position: {detail.Position}</li>
-                            </ul>
+                        <div>
+                            <div className="user-image">
+                                <img src={icon} alt='profile image' width="20%" height="20%"></img>
+                            </div>
+                            <div className="user-icon">
+                                <h1 className="nameTitle">Employee Name</h1> 
+                                <div className="name">{detail.FName} {detail.LName}</div>
+                            </div>
+                            <div className="user-info">
+                                <ul>
+                                    <li>
+                                        <h2 className="detailTitle">Employee ID</h2> 
+                                        <div className="details">{detail.ID}</div>
+                                    </li>
+                                    <li>
+                                        <h2 className="detailTitle">Department</h2> 
+                                        <div className="details">{detail.Department}</div>
+                                    </li>
+                                    <li>
+                                        <h2 className="detailTitle">Position</h2> 
+                                        <div className="details">{detail.Position}</div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     ))}
 
