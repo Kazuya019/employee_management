@@ -87,7 +87,7 @@ button.clock-btn:hover {
   display: flex;
   justify-content: flex-start;
   min-height: 80vh;
-  
+
 }
 
 .main-contents {
@@ -96,25 +96,6 @@ button.clock-btn:hover {
   padding: 10px;
   padding-left: 60px;
   background-color: white;
-}
-
-.user-icon {
-  text-align: center;
-  font-weight: 300;
-  font-size: 1.5rem;
-}
-
-.user-info ul {
-  display: flex;
-
-}
-
-.user-info ul li {
-  list-style: none;
-  width: 100%;
-  padding: 10px 10px 10px 10px;
-  font-weight: 300;
-  font-size: 1.5rem;
 }
 
 /* Sidebar */
@@ -255,7 +236,6 @@ button.clock-btn:hover {
   margin: 0 auto;
   z-index: 2;
 }
-
 .nameTitle {  
   font-size: small;
   font-weight: 10;

@@ -1,11 +1,10 @@
-table{
+table {
     margin-left: auto;
     margin-right: auto;
     border-collapse: separate;
     border-spacing: 20px 0px;
     width: 70%;
     height: 100%;
-
 }
 
 .table {
@@ -15,15 +14,49 @@ table{
 .title th {
     border-bottom: solid 2px black;
     font-size: large;
-    color: gray;
-    font-family: 'Didot', serif;
-
+    color: #1329a6;
 }
+
 .detail {
     font-weight: bold;
-    background-color: lightcyan;
+    background-color: #DFF6FF;
     font-family: 'Arial', sans-serif;
 }
 
+.choice {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.sel-filter {
+    width: 180px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.submit-sel {
+    background-color: #5D8BF4;
+    color: white;
+    border-radius: 1000px;
+    width: 80px;
+    height: 25px;
+    border: none;
+    font-size: 0.77rem;
+    font-weight: 600;
+    font-family: "Montserrat";
+}
+
+button.submit-sel:hover {
+    background-color: white;
+    color: #5D8BF4;
+    border: 1px solid #5D8BF4;
+}
 
 
+
+.filter {
+    margin-right: 10px;
+}

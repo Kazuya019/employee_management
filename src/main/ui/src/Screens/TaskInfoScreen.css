@@ -39,29 +39,52 @@ button.complete {
     position: absolute;
     right: 5%;
     top: 15%;
-    font-size: 0.8rem;
-    padding: 15px 30px;
-    border-radius: 8px;
-    text-align: center;
+    background-color: #5D8BF4;
+    color: white;
+    border-radius: 1000px;
+    display: block;
+    width: 130px;
+    height: 40px;
+    padding-left: 1rem;
+    padding-right: 1em;
+    box-sizing: border-box;
     text-decoration: none;
+    text-align: center;
+    border: none;
+    margin: 0 auto;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: "Montserrat";
 }
 
-.form-group input {
+.form-group textarea {
     float: left;
     margin-top: 30px;
     margin-left: 40px;
+    margin-bottom: 30px;
     width: 70%;
     height: 200px;
     border-radius: 8px;
+    font-family: "Montserrat";
+    display: inline-flex;
 }
 
 button.comment {
-    float: right;
-    margin-top: 180px;
-    margin-right: 40px;
-    font-size: 0.8rem;
-    padding: 15px 30px;
-    border-radius: 8px;
-    text-align: center;
+    margin-top: 200px;
+    background-color: #5D8BF4;
+    color: white;
+    border-radius: 1000px;
+    width: 100px;
+    height: 40px;
+    box-sizing: border-box;
     text-decoration: none;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: "Montserrat";
+}
+
+p.complete {
+    color: green;
 }

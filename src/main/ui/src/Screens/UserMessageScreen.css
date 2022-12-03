@@ -2,18 +2,18 @@
 .main-contents-message {
     background-color: white;
     width: 60%;
-    
 }
+
 .main-contents-message h1 {
     display: inline-block;
-    font-weight: 300;  
+    font-weight: 300;
     font-size: 1.5rem;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: "Montserrat";
     color: black;
     margin-right: 250px;
-
 }
-hr{
+
+hr {
     border: none;
     border-bottom: 1px solid #C4C4C4;
     margin-right: calc(0% - 50vw);
@@ -23,19 +23,19 @@ hr{
 table {
     text-align: center;
 }
+
 .message-form {
     display: block;
     margin-left: 200px;
-
-    
 }
 
-.message-form input:not(input[type="submit"]){
-	width:60%;
+.message-form input:not(input[type="submit"]) {
+    width: 60%;
     font-size: 1rem;
 }
-.message-form input:not(input[type="submit"]){
-	height:35px;
+
+.message-form input:not(input[type="submit"]) {
+    height: 35px;
 }
 
 div.submit {
@@ -45,10 +45,19 @@ div.submit {
 textarea {
     width: 60%;
     font-size: 1rem;
-  } 
+}
 
 .send {
     margin-left: 600px;
+    background-color: #5D8BF4;
+    color: white;
+    border-radius: 1000px;
+    width: 80px;
+    height: 25px;
+    border: none;
+    font-size: 0.77rem;
+    font-weight: 600;
+    font-family: "Montserrat";
 }
 
 .mess {
@@ -58,7 +67,3 @@ textarea {
 .mes {
     margin-left: 40px;
 }
-
-
-
-

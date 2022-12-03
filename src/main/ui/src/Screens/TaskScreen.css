@@ -20,6 +20,10 @@ table.task-table tr th:nth-child(3) {
   border-right: 0px solid;
 }
 
+table.task-table tr:nth-child(1) {
+  background-color: #DFF6FF;
+}
+
 .icon {
   color: green;
   font-size: 30px;
@@ -30,22 +34,14 @@ table.task-table tr th:nth-child(3) {
   align-items: center;
 }
 
-.subtask-info table tr th:nth-child(1) {
-  padding-left: 10%;
-}
-
 .individual-task select {
   border: none;
   width: 100%;
 }
 
-.task {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
 .task-info {
   font-size: 1.3rem;
+  font-family: "Montserrat";
 }
 
 .task-title {
